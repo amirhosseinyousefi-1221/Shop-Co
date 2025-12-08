@@ -13,7 +13,7 @@ export function CategoryFilter() {
   const [value, setValue] = useState<categories | string>("");
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-1 justify-center">
       <Select value={value} onValueChange={setValue}>
         <SelectTrigger className="w-[180px] border rounded-2xl mt-4 py-1.5 hover:text-red-500 hover:cursor-pointer">
           <SelectValue placeholder="Category" />

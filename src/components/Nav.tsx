@@ -1,8 +1,6 @@
 import { NavLink } from "./NavLink";
 import { SearchBar } from "./SearchBar";
-import { Input } from "./ui/input";
-import { User, UserRound } from "lucide-react";
-
+import { UserRound } from "lucide-react";
 export const Nav = () => {
   return (
     <>

@@ -19,7 +19,7 @@ function ProductsComponent() {
   return (
     <div className="flex">
       <Filters />
-      <div className="grid grid-cols-3 gap-y-5 gap-x-4 pl-10 pt-5 mb-4 ">
+      <div className="grid grid-cols-3 gap-y-5 gap-x-4 pl-10">
         {products.map((product: Product) => (
           <ProductCard product={product} key={product.id} />
         ))}
