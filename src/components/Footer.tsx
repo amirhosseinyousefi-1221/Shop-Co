@@ -3,6 +3,7 @@ import instagram from "@/assets/Instagram.png";
 import telegram from "@/assets/Telegram.webp";
 import whatsApp from "@/assets/WhatsApp.png";
 import facebook from "@/assets/facebook.png";
+import { Link } from "@tanstack/react-router";
 
 export const Footer = () => {
   return (
@@ -14,18 +15,18 @@ export const Footer = () => {
           </div>
           <div className="flex flex-col gap-2 ">
             <h4 className="text-white font-bold text-lg mb-2">Info</h4>
-            <a
-              href="/products"
+            <Link
+              to="/products"
               className="inline-block text-gray-300 font-medium hover:text-white w-fit "
             >
               Pricing
-            </a>
-            <a href="/aboutus" className="text-gray-300 font-medium w-fit">
+            </Link>
+            <Link to="/aboutus" className="text-gray-300 font-medium w-fit">
               About
-            </a>
-            <a href="/aboutus" className="text-gray-300 font-medium w-fit">
+            </Link>
+            <Link to="/aboutus" className="text-gray-300 font-medium w-fit">
               Contacts
-            </a>
+            </Link>
           </div>
           <div className="flex flex-col gap-2 ">
             <h4 className="text-white font-bold text-lg mb-2">Languages</h4>

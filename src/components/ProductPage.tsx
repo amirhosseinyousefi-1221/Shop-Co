@@ -1,8 +1,17 @@
+import { cn } from "@/lib/utils";
 import type { Product } from "@/types/product";
-import { Star } from "lucide-react";
+import { Minus, Plus, Star, Trash } from "lucide-react";
+import { useState } from "react";
+const buttonStyles =
+  "hover:cursor-pointer border rounded-3xl hover:bg-red-400 hover:text-white select-none";
 export const ProductPage = ({ product }: { product: Product }) => {
+  const [count, setCount] = useState<number>(0);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const handleIsLiked = () => {
+    isLiked ? setIsLiked(false) : setIsLiked(true);
+  };
   return (
-    <div className=" w-full flex   rounded-2xl   py-4 px-4">
+    <div className=" w-full flex rounded-2xl py-4 px-4">
       <div className="w-4/6 h-full flex justify-center items-center  ">
         <img src={product.image} className="w-auto h-auto max-h-100" />
       </div>
@@ -16,7 +25,14 @@ export const ProductPage = ({ product }: { product: Product }) => {
         <p className="text-lg">{product.description}</p>
         <p className=" font-semibold text-3xl ">${product.price}</p>
         <div className="flex gap-1 items-center flex-row-reverse pr-10">
-          <Star />
+          <Star
+            className={cn(
+              "hover:cursor-pointer select-none",
+              isLiked ? "text-red-500 fill-red-500" : "fill-white"
+            )}
+            size={28}
+            onClick={handleIsLiked}
+          />
           <span className="text-sm font-medium text-[#8A8A8A]">
             {product.rating.rate}
           </span>
@@ -24,9 +40,40 @@ export const ProductPage = ({ product }: { product: Product }) => {
             ({product.rating.count})
           </span>
         </div>
-        <button className=" hover:cursor-pointer border-2 border-[#D7D7D7] rounded-[25px] px-4 py-2.5 w-40 hover:bg-red-400 hover:text-white hover:border-[#ffffff] ">
-          Add
-        </button>
+        {count ? (
+          <>
+            <span className="text-lg text-teal-900">
+              Place Order for : <span className="font-bold">{count}</span>
+            </span>
+            <div className="flex gap-10 items-center">
+              <Plus
+                className={buttonStyles}
+                size={40}
+                strokeWidth={1}
+                onClick={() => setCount(count + 1)}
+              />
+              <button
+                className=" hover:cursor-pointer border rounded-3xl py-2 px-8 hover:bg-red-400 hover:text-white select-none "
+                onClick={() => setCount(0)}
+              >
+                <Trash />
+              </button>
+              <Minus
+                className={buttonStyles}
+                size={40}
+                strokeWidth={1}
+                onClick={() => setCount(count - 1)}
+              />
+            </div>
+          </>
+        ) : (
+          <button
+            className=" hover:cursor-pointer border rounded-3xl py-2 px-8 hover:bg-red-400 hover:text-white select-none"
+            onClick={() => setCount(1)}
+          >
+            Add to Cart
+          </button>
+        )}
       </div>
     </div>
   );
