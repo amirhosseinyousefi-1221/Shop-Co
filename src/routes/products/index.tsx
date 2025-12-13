@@ -1,28 +1,47 @@
-import { createRoute, useLoaderData } from "@tanstack/react-router";
+import { createRoute } from "@tanstack/react-router";
 import { rootRoute } from "../root";
-import ProductCard from "../../components/ProductCard";
-import type { Product } from "../../types/product";
-import { Filters } from "../../components/Filters";
+import ProductCard from "@/components/ProductCard";
+import type { IProduct } from "@/types/product";
+import { Filters } from "@/components/Filters";
+import { useQueryGetRequest } from "@/components/api/useQueryGetRequest";
+import ProductSkeleton from "@/components/ProductSkeleton";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { ICategories } from "@/types/categories";
 
 export const productsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/products",
-  loader: async () => {
-    const res = await fetch("https://fakestoreapi.com/products");
-    return res.json();
-  },
   component: ProductsComponent,
 });
 
 function ProductsComponent() {
-  const products: Product[] = useLoaderData({ from: productsRoute.id });
+  const [category, setCategory] = useState<ICategories | string>("");
+
+  const { data, isLoading, isError, isSuccess } = useQueryGetRequest<
+    IProduct[]
+  >({
+    queryKey: ["products", category],
+    path: "products",
+    category: category || "",
+  });
+
   return (
     <div className="flex">
-      <Filters />
-      <div className="grid grid-cols-3 gap-y-5 gap-x-4 pl-10">
-        {products.map((product: Product) => (
-          <ProductCard product={product} key={product.id} />
-        ))}
+      <Filters category={category} setCategory={setCategory} />
+      <div
+        className={cn(
+          "grid grid-cols-3 gap-y-5 pl-10",
+          isLoading ? "gap-x-12" : "gap-x-4"
+        )}
+      >
+        {isLoading &&
+          Array.from({ length: 15 }).map((_, i) => <ProductSkeleton key={i} />)}
+
+        {isSuccess &&
+          data?.map((product) => (
+            <ProductCard product={product} key={product.id} />
+          ))}
       </div>
     </div>
   );

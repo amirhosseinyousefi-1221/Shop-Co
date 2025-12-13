@@ -2,20 +2,23 @@ import clsx from "clsx";
 import { CircleX } from "lucide-react";
 
 type RemoveFilterProps<T> = {
-  value: T;
-  setValue: React.Dispatch<React.SetStateAction<T>>;
-  resetValue: T;
+  category: string;
+  setCategory: React.Dispatch<React.SetStateAction<string>>;
+  resetCategory: string;
 };
 
 function RemoveFilter<T>({
-  value,
-  setValue,
-  resetValue,
+  category,
+  setCategory,
+  resetCategory,
 }: RemoveFilterProps<T>) {
   return (
     <CircleX
-      className={clsx("mt-4 hover:cursor-pointer", value ? "block" : "hidden")}
-      onClick={() => setValue(resetValue)}
+      className={clsx(
+        "mt-4 hover:cursor-pointer",
+        category ? "block" : "hidden"
+      )}
+      onClick={() => setCategory(resetCategory)}
       strokeWidth={1.5}
       color="red"
       size={30}

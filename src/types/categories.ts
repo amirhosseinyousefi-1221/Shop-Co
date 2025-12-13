@@ -1,5 +1,7 @@
-export type categories =
-  | "men's clothing"
-  | "women's clothing"
-  | "jewelery"
-  | "electronics";
+export type ICategories =
+  | "Electronics"
+  | "Clothes"
+  | "Furniture"
+  | "Miscellaneous"
+  | "Shoes"
+  | "Giocattoli";

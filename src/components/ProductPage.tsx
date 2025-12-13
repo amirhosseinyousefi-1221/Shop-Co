@@ -1,10 +1,12 @@
 import { cn } from "@/lib/utils";
-import type { Product } from "@/types/product";
+import type { IProduct } from "@/types/product";
 import { Minus, Plus, Star, Trash } from "lucide-react";
 import { useState } from "react";
+
 const buttonStyles =
   "hover:cursor-pointer border rounded-3xl hover:bg-red-400 hover:text-white select-none";
-export const ProductPage = ({ product }: { product: Product }) => {
+
+export const ProductPage = ({ product }: { product: IProduct }) => {
   const [count, setCount] = useState<number>(0);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const handleIsLiked = () => {
@@ -13,14 +15,15 @@ export const ProductPage = ({ product }: { product: Product }) => {
   return (
     <div className=" w-full flex rounded-2xl py-4 px-4">
       <div className="w-4/6 h-full flex justify-center items-center  ">
-        <img src={product.image} className="w-auto h-auto max-h-100" />
+        <img src={product.images[0]} className="w-auto h-auto max-h-100" />
       </div>
       <div className="flex flex-col justify-center  gap-3 px-6">
         <p className="text-teal-900 text-xl font-medium content-center">
           {product.title}
         </p>
         <p className="text-teal-900 font-bold">
-          {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
+          {product.category.name.charAt(0).toUpperCase() +
+            product.category.name.slice(1)}
         </p>
         <p className="text-lg">{product.description}</p>
         <p className=" font-semibold text-3xl ">${product.price}</p>
@@ -33,12 +36,6 @@ export const ProductPage = ({ product }: { product: Product }) => {
             size={28}
             onClick={handleIsLiked}
           />
-          <span className="text-sm font-medium text-[#8A8A8A]">
-            {product.rating.rate}
-          </span>
-          <span className="mr-2 text-[#7a7979] font-medium">
-            ({product.rating.count})
-          </span>
         </div>
         {count ? (
           <>

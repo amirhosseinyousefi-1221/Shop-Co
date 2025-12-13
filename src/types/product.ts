@@ -1,13 +1,18 @@
-export interface Product {
-  id: string;
-  title: string;
-  price: number;
+export interface IProduct {
+  category: ICategory;
+  creationAt: Date;
   description: string;
-  category: string;
-  image: string;
-  rating: Rating;
+  id: string;
+  images: string[];
+  price: number;
+  slug: string;
+  title: string;
+  updatedAt: string;
 }
-interface Rating {
-  rate: number;
-  count: number;
+
+interface ICategory {
+  id: number;
+  image: string;
+  name: string;
+  slug: string;
 }
