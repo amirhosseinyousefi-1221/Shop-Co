@@ -5,17 +5,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import React from "react";
-import { CategoryOption } from "./CategoryOption";
-import RemoveFilter from "./RemoveFilter";
 
-export function CategoryFilter({
-  category,
-  setCategory,
-}: {
-  category: string;
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
-}) {
+import RemoveFilter from "./RemoveFilter";
+import { useFilters } from "./FiltersContext";
+import { CategoryOption } from "./CategoryOption";
+import { useState } from "react";
+
+export function CategoryFilter() {
   const categories: ICategories[] = [
     "Electronics",
     "Clothes",
@@ -24,10 +20,16 @@ export function CategoryFilter({
     "Shoes",
     "Giocattoli",
   ];
+  const { filters, setFilters } = useFilters();
 
   return (
     <div className="flex items-center gap-1 justify-center">
-      <Select value={category} onValueChange={setCategory}>
+      <Select
+        value={filters.category}
+        onValueChange={(value) =>
+          setFilters((prev) => ({ ...prev, category: value }))
+        }
+      >
         <SelectTrigger className="w-[180px] border rounded-2xl mt-4 py-1.5 hover:text-red-500 hover:cursor-pointer">
           <SelectValue placeholder="Category" />
         </SelectTrigger>
@@ -41,11 +43,7 @@ export function CategoryFilter({
         </SelectContent>
       </Select>
 
-      <RemoveFilter
-        category={category}
-        setCategory={setCategory}
-        resetCategory=""
-      />
+      <RemoveFilter />
     </div>
   );
 }

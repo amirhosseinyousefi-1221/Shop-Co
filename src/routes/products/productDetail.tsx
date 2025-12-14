@@ -1,5 +1,5 @@
 import { createRoute, useLoaderData } from "@tanstack/react-router";
-import type { Product } from "../../types/product";
+import type { IProduct } from "../../types/product";
 import { rootRoute } from "../root";
 import { ProductPage } from "../../components/ProductPage";
 
@@ -14,6 +14,6 @@ export const productDetailRoute = createRoute({
 });
 
 function ProductDetailComponent() {
-  const product: Product = useLoaderData({ from: productDetailRoute.id });
+  const product: IProduct = useLoaderData({ from: productDetailRoute.id });
   return <ProductPage product={product} />;
 }

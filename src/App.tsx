@@ -1,8 +1,7 @@
-import React from "react";
-import { Outlet } from "@tanstack/react-router";
+import { AppRouter } from "./routes/root";
 
 function App() {
-  return <Outlet />;
+  return <AppRouter />;
 }
 
 export default App;

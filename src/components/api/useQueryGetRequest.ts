@@ -8,7 +8,7 @@ export const useQueryGetRequest = <T>({
   path,
   id = "",
   title,
-  price_min,
+  price_min = 1,
   price_max,
   category,
 }: {
@@ -25,8 +25,11 @@ export const useQueryGetRequest = <T>({
     queryFn: async (): Promise<T> => {
       const params = new URLSearchParams();
       if (title) params.append("title", title);
-      if (price_min) params.append("price_min", price_min.toString());
-      if (price_max) params.append("price_max", price_max.toString());
+
+      if (price_max) {
+        params.append("price_min", price_min.toString());
+        params.append("price_max", price_max.toString());
+      }
       if (category) params.append("categorySlug", category.toLocaleLowerCase());
 
       const url = id
